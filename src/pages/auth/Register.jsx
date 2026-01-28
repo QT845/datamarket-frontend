@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useRegister from "../../hooks/useRegister";
 
-function Register() {
+export default function Register() {
   const [registerData, setRegisterData] = useState({
     fullName: "",
     email: "",
@@ -89,5 +89,3 @@ function Register() {
     </div>
   );
 }
-
-export default Register;

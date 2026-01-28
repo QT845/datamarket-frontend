@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useLogin from "../../hooks/useLogin";
 
-function Login() {
+export default function Login() {
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -15,7 +15,7 @@ function Login() {
     const success = await login(loginData);
 
     if (success) {
-      navigate("/profile");
+      navigate("/me");
     }
   };
 
@@ -59,5 +59,3 @@ function Login() {
     </div>
   );
 }
-
-export default Login;

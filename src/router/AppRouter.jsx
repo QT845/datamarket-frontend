@@ -1,16 +1,17 @@
 import { Routes, Route } from "react-router-dom";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
-import Profile from "../pages/user/Profile";
+import Me from "../pages/me/Me";
+import ProtectedRoute from "../auth/ProtectedRoute";
 
-function AppRouter() {
-    return (
-        <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/register" element={<Register />} />
-        </Routes>
-    );
+export default function AppRouter() {
+  return (
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route element={<ProtectedRoute />}>
+        <Route path="/me" element={<Me />} />
+      </Route>
+      <Route path="/register" element={<Register />} />
+    </Routes>
+  );
 }
-
-export default AppRouter;
