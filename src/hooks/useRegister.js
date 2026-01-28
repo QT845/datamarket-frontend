@@ -1,7 +1,7 @@
 import { useState } from "react";
 import api from "../api/api";
 
-function useRegister() {
+export default function useRegister() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -21,5 +21,3 @@ function useRegister() {
 
   return { register, loading, error };
 }
-
-export default useRegister;

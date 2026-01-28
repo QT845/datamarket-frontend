@@ -1,18 +1,22 @@
 import api from "../api/api";
+import { useAuth } from "../auth/useAuth";
+import { useNavigate } from "react-router-dom";
 
-function useLogout() {
+export default function useLogout() {
+  const { setUser } = useAuth();
+  const navigate = useNavigate();
+
   const logout = async () => {
     try {
       await api.post("/auth/logout");
     } catch (err) {
       console.warn("Logout failed:", err);
     } finally {
-      localStorage.removeItem("accessToken");
-      window.location.href = "/login";
+      localStorage.clear();
+      setUser(null);
+      navigate("/login", { replace: true });
     }
   };
 
   return { logout };
 }
-
-export default useLogout;
