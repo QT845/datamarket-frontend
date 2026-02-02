@@ -21,7 +21,10 @@ export default function Profile() {
       <p>
         <b>Role: </b> {user.role}
       </p>
-      <button onClick={logout}>Logout</button>
+      <button onClick={logout}>Logout</button> <br />
+      <button onClick={() => (window.location.href = "/datasets/create")}>
+        Publish Dataset
+      </button>
     </div>
   );
 }

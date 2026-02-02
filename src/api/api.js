@@ -3,9 +3,6 @@ import axios from "axios";
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
 api.interceptors.request.use(
@@ -15,11 +12,17 @@ api.interceptors.request.use(
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
+
+    // 🔥 QUAN TRỌNG: chỉ set JSON khi KHÔNG phải FormData
+    if (!(config.data instanceof FormData)) {
+      config.headers["Content-Type"] = "application/json";
+    } else {
+      delete config.headers["Content-Type"];
+    }
+
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  },
+  (error) => Promise.reject(error),
 );
 
 api.interceptors.response.use(
@@ -36,16 +39,14 @@ api.interceptors.response.use(
 
       try {
         const res = await api.post("/auth/refresh");
-
         const newAccessToken = res.data.data.accessToken;
 
         localStorage.setItem("accessToken", newAccessToken);
-
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
 
         return api(originalRequest);
       } catch (err) {
-        console.error("Refresh failed:", err);
+        console.error("Refresh token failed:", err);
         localStorage.removeItem("accessToken");
         window.location.href = "/login";
       }
