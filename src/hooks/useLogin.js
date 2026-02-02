@@ -1,6 +1,6 @@
 import { useState } from "react";
-import api from "../api/api";
-import { useAuth } from "../auth/useAuth";
+import api from "@/api/api";
+import { useAuth } from "@/auth/useAuth";
 
 export default function useLogin() {
   const [loading, setLoading] = useState(false);

@@ -1,5 +1,5 @@
-import api from "../api/api";
-import { useAuth } from "../auth/useAuth";
+import api from "@/api/api";
+import { useAuth } from "@/auth/useAuth";
 import { useNavigate } from "react-router-dom";
 
 export default function useLogout() {
